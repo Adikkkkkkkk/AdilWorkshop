@@ -41,5 +41,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
 
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     font-family: 'Oswald', sans-serif;
+    background: linear-gradient(red, #1b1c3a);
+}
+
+/* Игра */
+
+.game{
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.block{
+    background: black;
+    width: 20px;
+    height: 20px;
+}
+
+.head{
+    background: #1b1c3a;
+    box-shadow: 5px 5px 10px 10px blue;
+}
+
+.tail{
+    background: red;
+    box-shadow: 0 0 10px red;
+}
+
+.fruit{
+    background: red;
 }

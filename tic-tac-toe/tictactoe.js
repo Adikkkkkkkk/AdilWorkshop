@@ -6,11 +6,25 @@ let game = [
 	['', '', ''],
 	['', '', ''],
 ]
+let currentPlayer = 'cross'
+
+
+//  Очистить поле
+function clearCells(cells, game) {
+	for (let i = 0; i < cells.length; i++) {
+		let cell = cells[i]
+		cell.classList.remove('cross', 'zero')
+
+		let row = Math.floor(i / 3)
+		let column = i % 3
+		game[row][column] = ''
+	}
+}
 
 // Win
 function checkWin(isEmpty, isEqual) {
 	if (!isEmpty && isEqual) {
-		let playerIndex = currentPlayer == 'cross' ? 0 : 1
+		let playerIndex = currentPlayer === 'cross' ? 0 : 1
 		let playerScore = parseInt(scoreElements[playerIndex].innerText)
 		scoreElements[playerIndex].innerText = playerScore + 1
 		clearCells(cells, game)
@@ -33,17 +47,6 @@ function checkDraw(cells, game) {
 	}
 }
 
-// очередь
-let currentPlayer = 'cross'
-
-//  Очистить поле
-function clearCells(cells, game) {
-	for (let i = 0; i < cells.length; i++) {
-		let cell = cells[i]
-		cell.classList.remove('cross', 'zero')
-	}
-}
-
 for (let i = 0; i < cells.length; i++) {
 	let cell = cells[i]
 
@@ -54,8 +57,6 @@ for (let i = 0; i < cells.length; i++) {
 
 		let row = Math.floor(i / 3)
 		let column = i % 3
-		game[row][column] = ''
-
 		game[row][column] = currentPlayer
 		cell.classList.add(currentPlayer)
 
@@ -83,23 +84,24 @@ for (let i = 0; i < cells.length; i++) {
 
 		//  Первая диагональ
 		let isFirstDiagonalEmpty =
-			game[0][0] === '' || game[1][1] === '' || game[2][2] == ''
+			game[0][0] === '' || game[1][1] === '' || game[2][2] === ''
 		let isFirstDiagonalEqual =
 			game[0][0] === game[1][1] && game[1][1] === game[2][2]
 		checkWin(isFirstDiagonalEmpty, isFirstDiagonalEqual)
 
 		//  Вторая диагональ
 		let isSecondDiagonalEmpty =
-			game[0][2] === '' || game[1][1] === '' || game[2][0] == ''
+			game[0][2] === '' || game[1][1] === '' || game[2][0] === ''
 		let isSecondDiagonalEqual =
 			game[0][2] === game[1][1] && game[1][1] === game[2][0]
 		checkWin(isSecondDiagonalEmpty, isSecondDiagonalEqual)
+
+		checkDraw(cells,game)
 
 		if (currentPlayer === 'cross') {
 			currentPlayer = 'zero'
 		} else {
 			currentPlayer = 'cross'
 		}
-		// console.log(game)
 	})
 }
